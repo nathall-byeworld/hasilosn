@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Tester Page</title>
+</head>
+<body>
+  <h1>Tester CSV Data</h1>
+  <table border="1" id="tester-table"></table>
+
+  <script>
+    async function loadCSV() {
+      const response = await fetch("summary_osn2024.csv");
+      const text = await response.text();
+      const rows = text.trim().split("\n").map(r => r.split(","));
+
+      const table = document.getElementById("tester-table");
+      rows.forEach((row, i) => {
+        let tr = document.createElement("tr");
+        row.forEach(cell => {
+          let td = document.createElement(i === 0 ? "th" : "td");
+          td.textContent = cell;
+          tr.appendChild(td);
+        });
+        table.appendChild(tr);
+      });
+    }
+
+    loadCSV();
+  </script>
+  <h3>Cutoff</h3>
+  <ul>
+    <li>Emas: 443.0</li>
+    <li>Perak: 345.0</li>
+    <li>Perunggu: 241.0</li>
+  </ul>
+</body>
+</html>
