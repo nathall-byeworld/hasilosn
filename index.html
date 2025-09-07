@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>CSV Viewer</title>
+</head>
+<body>
+  <h1>CSV Data</h1>
+  <table border="1" id="csv-table"></table>
+
+  <script>
+    async function loadCSV() {
+      const response = await fetch("scraped_table.csv");
+      const text = await response.text();
+      const rows = text.split("\n").map(r => r.split(","));
+
+      const table = document.getElementById("csv-table");
+      rows.forEach(row => {
+        let tr = document.createElement("tr");
+        row.forEach(cell => {
+          let td = document.createElement("td");
+          td.textContent = cell;
+          tr.appendChild(td);
+        });
+        table.appendChild(tr);
+      });
+    }
+
+    loadCSV();
+  </script>
+</body>
